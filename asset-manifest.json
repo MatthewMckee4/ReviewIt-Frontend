@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/music_website/static/css/main.073c9b0a.css",
+    "main.js": "/music_website/static/js/main.4cfd8f54.js",
+    "static/js/787.49813cda.chunk.js": "/music_website/static/js/787.49813cda.chunk.js",
+    "index.html": "/music_website/index.html",
+    "main.073c9b0a.css.map": "/music_website/static/css/main.073c9b0a.css.map",
+    "main.4cfd8f54.js.map": "/music_website/static/js/main.4cfd8f54.js.map",
+    "787.49813cda.chunk.js.map": "/music_website/static/js/787.49813cda.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.4cfd8f54.js"
+  ]
+}
