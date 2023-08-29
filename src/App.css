@@ -12,24 +12,106 @@ nav {
   color: white;
 }
 
-nav li {
+nav .leftSide,
+nav .rightSide {
+  display: flex;
+  justify-content: space-between;
+}
+nav div ul li {
   margin: 10px;
   display: inline-block;
   list-style-type: None;
 }
 
-nav ul li a {
+nav div ul li a {
   padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
   text-decoration: None;
 }
 
-nav li a:hover {
+nav div ul li a:hover {
   background-color: #5a5a5a;
 }
 
-nav a:visited,
-nav a {
+nav div ul li a:visited,
+nav div ul li a {
   color: white;
+}
+
+/* AlbumsPage.css */
+.album-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow albums to wrap to the next row */
+  overflow: hidden; /* Hide any overflow content */
+  margin-top: 10px; /* Add some spacing between the input and the albums */
+}
+
+.album {
+  background-color: red;
+  width: 200px;
+  font-size: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px; /* Add space between rows */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  flex-direction: column;
+}
+
+.album img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
+}
+
+/* Add these styles for the search results menu */
+.searchResultsMenu {
+  position: fixed;
+  top: 35px;
+  right: 98.26px;
+  width: 184px;
+  background-color: #4d4d4d;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+  display: none;
+  color: black;
+  padding: 10px;
+  font-size: 11px;
+}
+
+.searchResultsMenu.active {
+  display: block;
+}
+
+.search-results {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-results li {
+  padding: 5px 0;
+  display: block;
+  overflow: hidden; /* Hide overflow content */
+  white-space: nowrap; /* Prevent text from wrapping */
+  text-overflow: ellipsis; /* Add ellipsis (...) for truncated text */
+}
+
+.search-results li a:hover {
+  background-color: #5a5a5a;
+}
+
+.search-bar {
+  margin: 10px 0;
+  width: 200px;
+}
+
+/* Artist Page */
+
+.artist-page img {
+  width: 100px;
 }
