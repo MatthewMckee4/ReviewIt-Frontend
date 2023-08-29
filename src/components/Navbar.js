@@ -16,15 +16,17 @@ function Navbar({ token, onTokenChange }) {
   return (
     <nav>
       <div className="leftSide">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
+        <ul className="underline-list">
+          <li className="centered-li">
+            <Link to="/" className="underline-transition">
+              Home
+            </Link>
           </li>
         </ul>
       </div>
       <div className="rightSide">
         {token ? <SearchBar token={token} /> : null}
-        <ul>
+        <ul className="underline-list">
           {!token ? (
             <li>
               <a
@@ -34,8 +36,9 @@ function Navbar({ token, onTokenChange }) {
               </a>
             </li>
           ) : (
-            <li>
+            <li className="centered-li">
               <a
+                className="underline-transition"
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();

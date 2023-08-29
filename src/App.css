@@ -2,14 +2,13 @@
   margin: 0;
   padding: 0;
   font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+  color: #323232;
 }
 
 nav {
-  margin-left: 0;
   display: flex;
   justify-content: space-between;
-  background-color: #323232;
-  color: white;
+  padding: 5px;
 }
 
 nav .leftSide,
@@ -18,25 +17,56 @@ nav .rightSide {
   justify-content: space-between;
 }
 nav div ul li {
-  margin: 10px;
+  margin: 6px 10px 10px 10px;
   display: inline-block;
   list-style-type: None;
 }
 
 nav div ul li a {
-  padding: 8px 12px;
-  border-radius: 5px;
+  padding: 2px 5px 2px 5px;
   cursor: pointer;
   text-decoration: None;
 }
 
-nav div ul li a:hover {
-  background-color: #5a5a5a;
+.centered-li {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-nav div ul li a:visited,
-nav div ul li a {
-  color: white;
+nav div ul li a:hover {
+  list-style-type: underline;
+}
+
+nav div ul li a:visited {
+  color: #323232;
+}
+/* Underline */
+.underline-list {
+  list-style: none;
+  padding: 0;
+}
+
+.underline-transition {
+  position: relative;
+  text-decoration: none; /* Remove default underline */
+  color: #000; /* Set link color */
+}
+
+.underline-transition::before {
+  content: "";
+  position: absolute;
+  bottom: -1px; /* Position the line right below the text */
+  left: 0;
+  width: 0;
+  height: 2px; /* Set the line height */
+  background-color: black; /* Change this to your desired underline color */
+  transition: width 0.3s ease; /* Transition the width property for the animation */
+}
+
+.underline-transition:hover::before {
+  width: 100%; /* Expand the line to 100% width on hover */
 }
 
 /* AlbumsPage.css */
@@ -66,21 +96,25 @@ nav div ul li a {
   aspect-ratio: 1/1;
 }
 
+/* Styles for the entire search bar container */
+.searchBar {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+}
+
 /* Add these styles for the search results menu */
 .searchResultsMenu {
   position: fixed;
-  top: 35px;
-  right: 98.26px;
-  width: 184px;
-  background-color: #4d4d4d;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  top: 40px;
+  right: 94.26px;
+  width: 201.33px;
+  background-color: rgb(207, 207, 207);
   z-index: 1000;
-  max-height: 300px;
+  max-height: 306.67px;
   overflow-y: auto;
   display: none;
-  color: black;
-  padding: 10px;
-  font-size: 11px;
+  color: #323232;
+  font-size: 12px;
 }
 
 .searchResultsMenu.active {
@@ -91,23 +125,73 @@ nav div ul li a {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  overflow: hidden; /* Hide overflow content */
 }
 
 .search-results li {
-  padding: 5px 0;
+  margin: 0;
   display: block;
   overflow: hidden; /* Hide overflow content */
   white-space: nowrap; /* Prevent text from wrapping */
   text-overflow: ellipsis; /* Add ellipsis (...) for truncated text */
 }
 
+.search-results li a {
+  display: block; /* Ensure the anchor takes full width within the li */
+  padding: 8px; /* Add padding for better visual appearance */
+  text-decoration: none; /* Remove underlines from the links */
+  color: inherit; /* Inherit the color from parent */
+}
+
 .search-results li a:hover {
   background-color: #5a5a5a;
+  color: white; /* Change text color on hover for better visibility */
+}
+
+/* Styles for the search bar and button container */
+.search-bar-container {
+  margin: 5px 0;
+  width: 200px;
+  border: 1px solid #ccc;
+  height: auto; /* Allow container to adjust its height based on content */
+}
+
+form {
+  display: flex;
+  justify-content: space-between;
+  height: 100%; /* Take up the full height of the search bar container */
 }
 
 .search-bar {
-  margin: 10px 0;
-  width: 200px;
+  margin-left: 5px;
+  border: none;
+  margin-right: 10px;
+  height: 100%; /* Take up the full height of the form */
+}
+
+.search-button {
+  border: none;
+  cursor: pointer;
+  margin-right: 2px;
+  display: flex; /* Use flexbox */
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+}
+.search-button {
+  align-items: center;
+}
+
+.search-bar:focus {
+  outline: none; /* Remove the default focus outline */
+  border-color: transparent; /* Set the border color to transparent */
+  box-shadow: none; /* Remove any box shadow */
+}
+
+.search-button {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  height: 100%;
 }
 
 /* Artist Page */

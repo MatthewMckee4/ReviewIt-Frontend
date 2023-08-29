@@ -17,10 +17,10 @@ const SearchBar = ({ token }) => {
         params: {
           q: `artist:${searchKey}`,
           type: "artist",
-          limit: 15,
+          limit: 10,
         },
       });
-
+      console.log(searchKey);
       if (data.artists && data.artists.items) {
         const filteredArtists = data.artists.items.filter(
           (artist) => artist.name.length <= 50
@@ -66,39 +66,71 @@ const SearchBar = ({ token }) => {
     setMenuActive(false);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (searchKey.trim() !== "") {
+      console.log("Searching for:", searchKey);
+    }
+  };
+
   return (
     <div className="searchBar">
-      <form>
-        <input
-          className="search-bar"
-          type="text"
-          placeholder="Search"
-          value={searchKey}
-          onChange={handleInputChange}
-          onKeyDown={handleEscapeKey}
-        />
-      </form>
-      <div className={`searchResultsMenu ${menuActive ? "active" : ""}`}>
-        {artists.length > 0 && (
-          <ul className="search-results">
-            {artists.map((artist) => (
-              <li key={artist.id}>
-                <Link
-                  to={{
-                    pathname: `/artist/${artist.id}`,
-                    search: `?token=${encodeURIComponent(
-                      token
-                    )}&artistId=${encodeURIComponent(artist.id)}`,
-                  }}
-                  onClick={handleLinkClick}
-                >
-                  {artist.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+      <div className="search-bar-container">
+        <form onSubmit={handleSubmit}>
+          <div>
+            <input
+              className="search-bar"
+              type="text"
+              placeholder="Search"
+              value={searchKey}
+              onChange={handleInputChange}
+              onKeyDown={handleEscapeKey}
+            />
+          </div>
+          <div>
+            <button
+              type="submit"
+              className="search-button"
+              onClick={handleSubmit}
+            >
+              <span className="material-symbols-outlined">search</span>
+            </button>
+          </div>
+        </form>
       </div>
+      {console.log(artists)}
+      {artists ? (
+        <div className={`searchResultsMenu ${menuActive ? "active" : ""}`}>
+          {artists.length > 0 && (
+            <ul className="search-results">
+              {artists.map((artist) => (
+                <li key={artist.id}>
+                  <Link
+                    to={{
+                      pathname: `/artist/${artist.id}`,
+                      search: `?token=${encodeURIComponent(
+                        token
+                      )}&artistId=${encodeURIComponent(artist.id)}`,
+                    }}
+                    onClick={handleLinkClick}
+                  >
+                    {artist.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ) : (
+        <div className={`searchResultsMenu ${menuActive ? "active" : ""}`}>
+          {" "}
+          <ul>
+            <li>No Results</li>
+            <li>Logout and Login if this continues</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
