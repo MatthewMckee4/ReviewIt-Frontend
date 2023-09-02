@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Route, Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SearchArtists from "./SearchArtists";
 
 const SearchBar = ({ token }) => {
@@ -26,9 +26,7 @@ const SearchBar = ({ token }) => {
   }, [searchKey, token]);
 
   useEffect(() => {
-    // Clear the search key and close the menu when the route changes
-    setSearchKey("");
-    setMenuActive(false);
+    clearSearchBar();
   }, [location]);
 
   const handleInputChange = (e) => {
@@ -38,12 +36,11 @@ const SearchBar = ({ token }) => {
 
   const handleEscapeKey = (e) => {
     if (e.key === "Escape") {
-      setSearchKey("");
-      setMenuActive(false);
+      clearSearchBar();
     }
   };
 
-  const handleLinkClick = () => {
+  const clearSearchBar = () => {
     setSearchKey("");
     setMenuActive(false);
   };
@@ -95,7 +92,7 @@ const SearchBar = ({ token }) => {
                         token
                       )}&artistId=${encodeURIComponent(artist.id)}`,
                     }}
-                    onClick={handleLinkClick}
+                    onClick={clearSearchBar}
                   >
                     {artist.name}
                   </Link>

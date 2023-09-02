@@ -1,5 +1,5 @@
 import axios from "axios";
-const FetchAlbumDetails = async (albumId, token) => {
+const GetAlbumDetails = async (albumId, token) => {
   try {
     const { data } = await axios.get(
       `https://api.spotify.com/v1/albums/${albumId}`,
@@ -16,4 +16,4 @@ const FetchAlbumDetails = async (albumId, token) => {
   }
 };
 
-export default FetchAlbumDetails;
+export default GetAlbumDetails;

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const FetchAlbumsForArtist = async (artistId, token) => {
+const GetAlbums = async (artistId, token) => {
   try {
     const limit = 50; // Increase the limit to retrieve more albums per request
     let offset = 0;
@@ -43,4 +43,4 @@ const FetchAlbumsForArtist = async (artistId, token) => {
   }
 };
 
-export default FetchAlbumsForArtist;
+export default GetAlbums;

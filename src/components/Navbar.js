@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Route, Link } from "react-router-dom"; // Import from react-router-dom
+import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 
 function Navbar({ token, onTokenChange }) {
@@ -39,7 +39,7 @@ function Navbar({ token, onTokenChange }) {
             <li className="centered-li">
               <a
                 className="underline-transition"
-                href="#"
+                href="/"
                 onClick={(e) => {
                   e.preventDefault();
                   logout();

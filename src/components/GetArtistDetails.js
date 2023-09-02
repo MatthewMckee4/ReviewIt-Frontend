@@ -1,5 +1,5 @@
 import axios from "axios";
-const FetchArtistDetails = async (artistId, token) => {
+const GetArtistDetails = async (artistId, token) => {
   try {
     const { data } = await axios.get(
       `https://api.spotify.com/v1/artists/${artistId}`,
@@ -16,4 +16,4 @@ const FetchArtistDetails = async (artistId, token) => {
   }
 };
 
-export default FetchArtistDetails;
+export default GetArtistDetails;

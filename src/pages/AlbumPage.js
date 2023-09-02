@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import FetchAlbumDetails from "../components/FetchAlbumDetails";
+import { useLocation } from "react-router-dom";
+import GetAlbumDetails from "../components/GetAlbumDetails";
 
 const AlbumPage = () => {
   const location = useLocation();
@@ -11,7 +11,7 @@ const AlbumPage = () => {
 
   useEffect(() => {
     const fetchDetails = async () => {
-      const albumDetails = await FetchAlbumDetails(albumId, token); // Fetch artist details first
+      const albumDetails = await GetAlbumDetails(albumId, token); // Fetch artist details first
       setAlbum(albumDetails);
     };
     if (albumId) {
