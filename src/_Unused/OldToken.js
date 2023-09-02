@@ -4,7 +4,6 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import ArtistPage from "./pages/ArtistPage";
-import AlbumPage from "./pages/AlbumPage";
 
 function App() {
   const [token, setToken] = useState("");
@@ -38,7 +37,6 @@ function App() {
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/artist/:id" element={<ArtistPage />} />
-          <Route path="/album/:id" element={<AlbumPage />} />
         </Routes>
       </BrowserRouter>
     </div>

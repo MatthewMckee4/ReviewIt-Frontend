@@ -1,95 +1,69 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
+import { Link, useLocation } from "react-router-dom";
+import GetArtistDetails from "../components/GetArtistDetails";
+import GetAlbums from "../components/GetAlbums";
 
 const ArtistPage = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get("token");
-  const artistId = queryParams.get("artistId"); // Change "artist" to "artistId"
-  const [artist, setArtist] = useState(null); // Use state to store artist details
+  const artistId = queryParams.get("artistId");
   const [albums, setAlbums] = useState([]);
+  const [artist, setArtist] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (artistId) {
-      fetchArtistDetails(artistId); // Fetch artist details first
-      fetchAlbumsForArtist(artistId);
-    }
-  }, [artistId]);
-
-  const fetchArtistDetails = async (artistId) => {
-    try {
-      const { data } = await axios.get(
-        `https://api.spotify.com/v1/artists/${artistId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setArtist(data);
-    } catch (error) {
-      console.error("Error fetching artist details:", error);
-    }
-  };
-
-  const fetchAlbumsForArtist = async (artistId) => {
-    try {
-      const limit = 50; // Increase the limit to retrieve more albums per request
-      let offset = 0;
-      let allAlbums = [];
-
-      while (true) {
-        const { data } = await axios.get(
-          `https://api.spotify.com/v1/artists/${artistId}/albums`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            params: {
-              limit,
-              offset,
-            },
-          }
-        );
-
-        const albumsOfTypeAlbum = data.items.filter(
-          (album) =>
-            album.album_type === "album" &&
-            album.album_group === "album" &&
-            album.artists.some((artist) => artist.id === artistId)
-        );
-
-        allAlbums = allAlbums.concat(albumsOfTypeAlbum);
-
-        if (data.next) {
-          offset += limit;
-        } else {
-          break;
-        }
+    const fetchDetails = async () => {
+      try {
+        const artistDetails = await GetArtistDetails(artistId, token);
+        setArtist(artistDetails);
+        const fetchedAlbums = await GetAlbums(artistId, token);
+        setAlbums(fetchedAlbums);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching artist details and albums:", error);
+        setIsLoading(false);
       }
-      setAlbums(allAlbums);
-    } catch (error) {
-      console.error("Error fetching artist albums:", error);
-    }
-  };
+    };
 
-  if (!artist) {
-    return <div>Loading...</div>;
+    if (artistId && token) {
+      setIsLoading(true);
+      fetchDetails();
+    }
+  }, [artistId, token]);
+
+  if (isLoading || !artist) {
+    return (
+      <div className="loading">
+        <p>{isLoading ? "Loading..." : "Artist not found."}</p>
+      </div>
+    );
   }
 
   return (
     <div className="artist-page">
-      {console.log(artist)}
-      <h2>{artist.name}</h2>
-      {artist?.images?.[0]?.url && <img src={artist.images[0].url} alt="" />}
+      <div className="artist-details">
+        <h2>{artist.name}</h2>
+        {artist?.images?.[0]?.url && (
+          <img className="artist-img" src={artist.images[0].url} alt="" />
+        )}
+      </div>
       <div>
         <h2>Albums for {artist.name}</h2>
         <div className="album-container">
           {albums.map((album) => (
             <div key={album.id} className="album">
+              <Link
+                to={{
+                  pathname: `/album/${album.id}`,
+                  search: `?token=${encodeURIComponent(
+                    token
+                  )}&albumId=${encodeURIComponent(album.id)}`,
+                }}
+              >
+                <img src={album.images[1].url} alt="" />
+              </Link>
               <p>{album.name}</p>
-              <img height={"100px"} src={album.images[1].url} alt="" />
             </div>
           ))}
         </div>
