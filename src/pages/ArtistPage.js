@@ -42,7 +42,6 @@ const ArtistPage = () => {
 
   return (
     <div className="artist-page">
-      {console.log(artist)}
       <div className="artist-details">
         <h2>{artist.name}</h2>
         {artist?.images?.[0]?.url && (
