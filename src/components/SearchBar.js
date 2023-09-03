@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchArtists from "./SearchArtists";
-import SearchResults from "./searchResults";
-import useDebounce from "./useDebounce";
+import SearchResults from "./SearchResults";
+import useDebounce from "./UseDebounce";
 
 const SearchBar = ({ token }) => {
   const [searchKey, setSearchKey] = useState("");
@@ -10,9 +10,9 @@ const SearchBar = ({ token }) => {
   const debouncedInput = useDebounce(searchKey);
 
   useEffect(() => {
-    const fetchArtists = async (debouncedInput, token) => {
+    const fetchArtists = async (Input, token) => {
       try {
-        const artists = await SearchArtists(debouncedInput, token);
+        const artists = await SearchArtists(Input, token);
         setArtists(artists);
       } catch (error) {
         console.error("Error fetching artist details and albums:", error);
