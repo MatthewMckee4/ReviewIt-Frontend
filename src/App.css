@@ -1,12 +1,12 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+  font-family: "Proxima Nova", sans-serif;
   color: #323232;
 }
 
 .App > div {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -76,18 +76,92 @@ nav div ul li a:visited {
 
 /* Artist Page */
 
-.artist-page .artist-img {
+.artist-main-section {
+  display: flex; /* Make the container a flex container */
+}
+.artist-page hr {
+  border: none; /* Removes the default styling */
+  border-top: 1px solid #ccc; /* Adds a horizontal border on top */
+}
+
+.artist-main-section .artist-side-bar {
+  width: 250px; /* Set the width of the sidebar */
+  padding: 20px; /* Add some padding for content inside the sidebar */
+}
+
+.artist-main-section .album-section {
+  flex: 1; /* Allow the main content to expand and fill the remaining space */
+  padding: 20px; /* Add some padding for content inside the main section */
+}
+
+.artist-section .artist-img {
   width: 200px;
 }
 
-.artist-page .artist-details {
-  text-align: center;
+/* Style for the sorting container */
+.artist-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px; /* Add padding for spacing */
+}
+
+.artist-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally and vertically */
+  margin-right: 30px; /* Adjust margin for spacing */
+}
+
+.artist-image h2 {
+  margin-top: 10px; /* Add margin between image and heading */
+}
+
+.artist-details p {
+  font-size: 17px;
+  margin: 5px 0; /* Add vertical spacing between paragraphs */
+}
+
+.artist-name {
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: space-between; /* Create even spacing between text and logo */
+  font-size: 20px; /* Adjust the font size as needed */
+}
+
+.spotify-link {
+  margin-top: 5px;
+}
+
+.album-head-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.sorting-dropdown {
+  text-align: right;
+  background-color: #f0f0f0;
+}
+
+/* Style for the sorting label */
+.sorting-dropdown label {
+  font-weight: bold;
+}
+
+/* Style for the sorting select element */
+.sorting-dropdown select {
+  padding: 5px;
+  border-radius: 4px;
+}
+
+/* Style for option items in the dropdown */
+.sorting-dropdown select option {
+  font-weight: normal;
 }
 
 .album-container {
   display: grid;
-  grid-template-columns: repeat(5, 20%);
-  gap: 10px 0;
+  grid-template-columns: repeat(4, 25%);
 }
 
 .album {
@@ -98,7 +172,16 @@ nav div ul li a:visited {
   flex-direction: column;
 }
 
+.album h5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to two lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .album p {
+  font-size: 11px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -184,7 +267,6 @@ form {
 .search-bar {
   margin-left: 5px;
   border: none;
-  margin-right: 10px;
   height: 100%; /* Take up the full height of the form */
 }
 
