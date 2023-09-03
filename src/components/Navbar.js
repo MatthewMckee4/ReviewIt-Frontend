@@ -7,9 +7,10 @@ function Navbar({ token, onTokenChange }) {
   const REDIRECT_URI = "http://localhost:3000/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
+  const AUTH_URL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
 
   const logout = () => {
-    onTokenChange(""); // Clear the token in the App component
+    onTokenChange("");
     window.localStorage.removeItem("token");
   };
 
@@ -29,11 +30,7 @@ function Navbar({ token, onTokenChange }) {
         <ul className="underline-list">
           {!token ? (
             <li>
-              <a
-                href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
-              >
-                Login to Spotify
-              </a>
+              <a href={AUTH_URL}>Login to Spotify</a>
             </li>
           ) : (
             <li className="centered-li">
