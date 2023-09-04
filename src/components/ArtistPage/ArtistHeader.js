@@ -1,5 +1,5 @@
 import React from "react";
-import SpotifyLogo from "../asssets/Spotify_Icon_RGB_Green.png";
+import SpotifyLogo from "../../assets/Spotify_Icon_RGB_Green.png";
 
 const ArtistHeader = ({ artist }) => {
   return (

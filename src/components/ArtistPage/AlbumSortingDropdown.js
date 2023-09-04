@@ -1,4 +1,3 @@
-// SortingDropdown.js
 import React from "react";
 
 const AlbumSortingDropdown = ({ handleSortingChange, sortingOption }) => {

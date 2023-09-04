@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 
-function Navbar({ token, onTokenChange }) {
+const Navbar = ({ token, onTokenChange }) => {
   const CLIENT_ID = "300a45c9a2c74fbdba97db32cdb65c90";
   const REDIRECT_URI = "http://localhost:3000/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
@@ -51,6 +51,6 @@ function Navbar({ token, onTokenChange }) {
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;

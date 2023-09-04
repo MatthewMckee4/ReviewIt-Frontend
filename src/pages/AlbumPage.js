@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import GetAlbumDetails from "../components/GetAlbumDetails";
+import { useParams } from "react-router-dom";
+import GetAlbumDetails from "../components/Album/GetAlbumDetails";
+import TrackList from "../components/Track/TrackList";
 
-const AlbumPage = () => {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const token = queryParams.get("token");
-  const albumId = queryParams.get("albumId");
+const AlbumPage = ({ token }) => {
+  const { albumId } = useParams();
   const [album, setAlbum] = useState(null);
 
   useEffect(() => {
@@ -24,8 +22,9 @@ const AlbumPage = () => {
   }
   return (
     <div>
-      {album.name}
+      <h2>{album.name}</h2>
       <img height={"100px"} src={album.images[1].url} alt="" />
+      <TrackList tracks={album.tracks.items} />
     </div>
   );
 };

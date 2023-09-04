@@ -37,8 +37,11 @@ function App() {
         <Navbar token={token} onTokenChange={onTokenChange} />
         <Routes>
           <Route index element={<HomePage />} />
-          <Route path="/artist/:id" element={<ArtistPage />} />
-          <Route path="/album/:id" element={<AlbumPage />} />
+          <Route
+            path="/artist/:artistId"
+            element={<ArtistPage token={token} />}
+          />
+          <Route path="/album/:albumId" element={<AlbumPage token={token} />} />
         </Routes>
       </BrowserRouter>
     </div>

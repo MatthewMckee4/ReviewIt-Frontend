@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import GetArtistDetails from "../components/GetArtistDetails";
-import GetAlbums from "../components/GetAlbums";
-import SortAlbums from "../components/SortAlbums";
-import ArtistHeader from "../components/ArtistHeader"; // Update the path
-import ArtistSideBar from "../components/ArtistSideBar";
-import AlbumSection from "../components/AlbumSection";
+import { useParams } from "react-router-dom";
+import GetArtistDetails from "../components/Artist/GetArtistDetails";
+import GetAlbums from "../components/Artist/GetAlbums";
+import SortAlbums from "../components/Album/SortAlbums";
+import ArtistHeader from "../components/ArtistPage/ArtistHeader";
+import ArtistSideBar from "../components/ArtistPage/ArtistSideBar";
+import AlbumSection from "../components/Album/AlbumSection";
 
-const ArtistPage = () => {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const token = queryParams.get("token");
-  const artistId = queryParams.get("artistId");
+const ArtistPage = ({ token }) => {
+  const { artistId } = useParams();
   const [albums, setAlbums] = useState([]);
   const [artist, setArtist] = useState(null);
   const [isLoadingAlbums, setIsLoadingAlbums] = useState(true);
@@ -65,7 +62,6 @@ const ArtistPage = () => {
         <AlbumSection // Use the AlbumSection component here
           isLoadingAlbums={isLoadingAlbums}
           albums={albums}
-          token={token}
           handleSortingChange={handleSortingChange}
           sortingOption={sortingOption}
         />
