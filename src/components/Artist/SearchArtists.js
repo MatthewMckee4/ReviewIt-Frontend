@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const SearchArtists = async (searchKey, token) => {
-  console.log("in", searchKey, token);
   try {
     const { data } = await axios.get("https://api.spotify.com/v1/search", {
       headers: {

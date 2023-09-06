@@ -1,5 +1,5 @@
 import React from "react";
-import SpotifyLogo from "../asssets/Spotify_Icon_RGB_Green.png";
+import SpotifyLogo from "../../assets/Spotify_Icon_RGB_Green.png";
 
 const ArtistHeader = ({ artist }) => {
   return (
@@ -21,9 +21,15 @@ const ArtistHeader = ({ artist }) => {
         </h2>
       </div>
       <div className="artist-details">
-        <p>Genres: {artist.genres.join(", ")}</p>
-        <p>Popularity: {artist.popularity}</p>
-        <p>Spotify Followers: {artist.followers.total.toLocaleString()}</p>
+        <p>
+          <b>Genres</b> {artist.genres.join(", ")}
+        </p>
+        <p>
+          <b>Popularity</b> {artist.popularity}
+        </p>
+        <p>
+          <b>Spotify Followers</b> {artist.followers.total.toLocaleString()}
+        </p>
       </div>
     </div>
   );

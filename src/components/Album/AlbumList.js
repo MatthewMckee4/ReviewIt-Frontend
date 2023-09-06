@@ -1,11 +1,11 @@
 import React from "react";
 import Album from "./Album";
 
-const AlbumList = ({ albums, token }) => {
+const AlbumList = ({ albums }) => {
   return (
     <div className="album-container">
       {albums.map((album) => (
-        <Album key={album.id} album={album} token={token} />
+        <Album key={album.id} album={album} />
       ))}
     </div>
   );

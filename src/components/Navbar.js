@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 
-function Navbar({ token, onTokenChange }) {
+const Navbar = ({ token, onTokenChange }) => {
   const CLIENT_ID = "300a45c9a2c74fbdba97db32cdb65c90";
   const REDIRECT_URI = "http://localhost:3000/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
   const AUTH_URL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
 
+  useEffect(() => {
+    // Check if a token is available in session storage and initialize the token state
+    const storedToken = sessionStorage.getItem("token");
+    if (storedToken) {
+      onTokenChange(storedToken);
+    }
+  }, [onTokenChange]);
+
   const logout = () => {
     onTokenChange("");
-    window.localStorage.removeItem("token");
+    sessionStorage.removeItem("token"); // Remove the token from session storage
   };
 
   return (
@@ -51,6 +59,6 @@ function Navbar({ token, onTokenChange }) {
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;
