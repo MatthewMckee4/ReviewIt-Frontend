@@ -7,28 +7,32 @@ import ArtistPage from "./pages/ArtistPage";
 import AlbumPage from "./pages/AlbumPage";
 
 function App() {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(() => {
+    // Initialize the token state from session storage (if it exists)
+    return sessionStorage.getItem("token") || "";
+  });
 
   const onTokenChange = (newToken) => {
     setToken(newToken);
+    sessionStorage.setItem("token", newToken); // Store the token in session storage
   };
 
   useEffect(() => {
     const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
 
-    if (!token && hash) {
-      token = hash
+    if (hash) {
+      const newToken = hash
         .substring(1)
         .split("&")
         .find((elem) => elem.startsWith("access_token"))
-        .split("=")[1];
+        ?.split("=")[1];
 
-      window.location.hash = "";
-      window.localStorage.setItem("token", token);
+      if (newToken) {
+        window.location.hash = ""; // Clear the hash after extracting the token
+        setToken(newToken);
+        sessionStorage.setItem("token", newToken); // Store the token in session storage
+      }
     }
-
-    setToken(token);
   }, []);
 
   return (

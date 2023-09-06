@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 
@@ -9,9 +9,17 @@ const Navbar = ({ token, onTokenChange }) => {
   const RESPONSE_TYPE = "token";
   const AUTH_URL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
 
+  useEffect(() => {
+    // Check if a token is available in session storage and initialize the token state
+    const storedToken = sessionStorage.getItem("token");
+    if (storedToken) {
+      onTokenChange(storedToken);
+    }
+  }, [onTokenChange]);
+
   const logout = () => {
     onTokenChange("");
-    window.localStorage.removeItem("token");
+    sessionStorage.removeItem("token"); // Remove the token from session storage
   };
 
   return (

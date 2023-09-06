@@ -95,13 +95,13 @@ nav div ul li a:visited {
 }
 
 .artist-section .artist-img {
-  width: 200px;
+  width: 300px;
 }
 
 /* Style for the sorting container */
 .artist-section {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 20px; /* Add padding for spacing */
 }
 
@@ -116,9 +116,14 @@ nav div ul li a:visited {
   margin-top: 10px; /* Add margin between image and heading */
 }
 
+.artist-details {
+  max-width: 300px; /* Adjust the max width as needed */
+}
+
 .artist-details p {
   font-size: 17px;
   margin: 5px 0; /* Add vertical spacing between paragraphs */
+  white-space: break-spaces;
 }
 
 .artist-name {
@@ -299,10 +304,31 @@ form {
 
 .loading {
   margin-top: 40px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .loading p {
   font-size: 20px;
   font-weight: bold;
+  margin-bottom: 10px; /* Add some space between the text and loader */
+}
+
+.loader {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid #3498db;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

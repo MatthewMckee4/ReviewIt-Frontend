@@ -21,9 +21,15 @@ const ArtistHeader = ({ artist }) => {
         </h2>
       </div>
       <div className="artist-details">
-        <p>Genres: {artist.genres.join(", ")}</p>
-        <p>Popularity: {artist.popularity}</p>
-        <p>Spotify Followers: {artist.followers.total.toLocaleString()}</p>
+        <p>
+          <b>Genres</b> {artist.genres.join(", ")}
+        </p>
+        <p>
+          <b>Popularity</b> {artist.popularity}
+        </p>
+        <p>
+          <b>Spotify Followers</b> {artist.followers.total.toLocaleString()}
+        </p>
       </div>
     </div>
   );

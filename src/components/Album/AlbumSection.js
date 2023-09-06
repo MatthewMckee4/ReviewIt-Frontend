@@ -23,6 +23,7 @@ const AlbumSection = ({
       ) : (
         <div className="loading">
           <p>Loading Albums</p>
+          <div className="loader"></div>
         </div>
       )}
     </div>
