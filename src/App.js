@@ -8,13 +8,12 @@ import AlbumPage from "./pages/AlbumPage";
 
 function App() {
   const [token, setToken] = useState(() => {
-    // Initialize the token state from session storage (if it exists)
     return sessionStorage.getItem("token") || "";
   });
 
   const onTokenChange = (newToken) => {
     setToken(newToken);
-    sessionStorage.setItem("token", newToken); // Store the token in session storage
+    sessionStorage.setItem("token", newToken);
   };
 
   useEffect(() => {
@@ -28,9 +27,9 @@ function App() {
         ?.split("=")[1];
 
       if (newToken) {
-        window.location.hash = ""; // Clear the hash after extracting the token
+        window.location.hash = "";
         setToken(newToken);
-        sessionStorage.setItem("token", newToken); // Store the token in session storage
+        sessionStorage.setItem("token", newToken);
       }
     }
   }, []);

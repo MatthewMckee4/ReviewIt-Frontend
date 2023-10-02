@@ -22,6 +22,7 @@ const AlbumPage = ({ token }) => {
   }
   return (
     <div>
+      {console.log(album)}
       <h2>{album.name}</h2>
       <img height={"100px"} src={album.images[1].url} alt="" />
       <TrackList tracks={album.tracks.items} />
