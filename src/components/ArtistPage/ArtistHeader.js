@@ -8,8 +8,8 @@ const ArtistHeader = ({ artist }) => {
         {artist?.images?.[0]?.url && (
           <img className="artist-img" src={artist.images[0].url} alt="" />
         )}
-        <h2 className="artist-name">
-          {artist.name}
+        <div className="artist-name">
+          <h2>{artist.name}</h2>
           <a
             href={artist.external_urls.spotify}
             target="_blank"
@@ -18,7 +18,7 @@ const ArtistHeader = ({ artist }) => {
           >
             <img src={SpotifyLogo} alt="Spotify Logo" width="20" height="20" />
           </a>
-        </h2>
+        </div>
       </div>
       <div className="artist-details">
         <p>

@@ -94,43 +94,51 @@ nav div ul li a:visited {
   padding: 20px; /* Add some padding for content inside the main section */
 }
 
-.artist-section .artist-img {
+.artist-section .artist-img,
+.album-header-section .album-img {
   width: 300px;
+  height: 300px;
 }
 
 /* Style for the sorting container */
-.artist-section {
+.artist-section,
+.album-header-section {
   display: flex;
   justify-content: space-evenly;
-  padding: 20px; /* Add padding for spacing */
+  padding: 20px;
 }
 
-.artist-image {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center horizontally and vertically */
-  margin-right: 30px; /* Adjust margin for spacing */
+.artist-details,
+.album-details {
+  max-width: 300px;
 }
 
-.artist-image h2 {
-  margin-top: 10px; /* Add margin between image and heading */
-}
-
-.artist-details {
-  max-width: 300px; /* Adjust the max width as needed */
-}
-
-.artist-details p {
+.artist-details p,
+.album-details p {
   font-size: 17px;
-  margin: 5px 0; /* Add vertical spacing between paragraphs */
+  margin: 5px 0;
   white-space: break-spaces;
 }
 
+.album-name,
 .artist-name {
   display: flex;
-  align-items: center; /* Center vertically */
-  justify-content: space-between; /* Create even spacing between text and logo */
-  font-size: 20px; /* Adjust the font size as needed */
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  max-width: 300px;
+}
+
+.album-name h2,
+.artist-name h2 {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.album-name a,
+.artist-name a {
+  display: flex;
+  align-items: center;
 }
 
 .spotify-link {

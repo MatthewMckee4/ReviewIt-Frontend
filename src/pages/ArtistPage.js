@@ -59,7 +59,7 @@ const ArtistPage = ({ token }) => {
       <hr />
       <div className="artist-main-section">
         <ArtistSideBar />
-        <AlbumSection // Use the AlbumSection component here
+        <AlbumSection
           isLoadingAlbums={isLoadingAlbums}
           albums={albums}
           handleSortingChange={handleSortingChange}
