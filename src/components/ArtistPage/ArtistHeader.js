@@ -3,7 +3,7 @@ import SpotifyLogo from "../../assets/Spotify_Icon_RGB_Green.png";
 
 const ArtistHeader = ({ artist }) => {
   return (
-    <div className="artist-section">
+    <div className="artist-header-section">
       <div>
         {artist?.images?.[0]?.url && (
           <img className="artist-img" src={artist.images[0].url} alt="" />

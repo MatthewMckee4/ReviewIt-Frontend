@@ -6,11 +6,13 @@ const Navbar = ({ token, onTokenChange }) => {
   const CLIENT_ID = "300a45c9a2c74fbdba97db32cdb65c90";
   const REDIRECT_URI = "http://localhost:3000/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
-  const RESPONSE_TYPE = "token";
-  const AUTH_URL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
+  const scopes = ["user-read-private", "user-read-email"];
+  const AUTH_URL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${scopes.join(
+    "%20"
+  )}&response_type=token`;
 
   useEffect(() => {
-    // Check if a token is available in session storage and initialize the token state
+    console.log(token);
     const storedToken = sessionStorage.getItem("token");
     if (storedToken) {
       onTokenChange(storedToken);
@@ -19,7 +21,7 @@ const Navbar = ({ token, onTokenChange }) => {
 
   const logout = () => {
     onTokenChange("");
-    sessionStorage.removeItem("token"); // Remove the token from session storage
+    sessionStorage.removeItem("token");
   };
 
   return (
