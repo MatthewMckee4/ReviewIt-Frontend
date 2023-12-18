@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import GetAlbumDetails from "../components/Album/GetAlbumDetails";
 import TrackList from "../components/Track/TrackList";
+import AlbumHeader from "../components/AlbumPage/AlbumHeader";
+import { ReviewBox } from "../components/AlbumPage/ReviewBox";
+import ReviewList from "../components/Review/ReviewList";
 
 const AlbumPage = ({ token }) => {
   const { albumId } = useParams();
@@ -9,7 +12,7 @@ const AlbumPage = ({ token }) => {
 
   useEffect(() => {
     const fetchDetails = async () => {
-      const albumDetails = await GetAlbumDetails(albumId, token); // Fetch artist details first
+      const albumDetails = await GetAlbumDetails(albumId, token);
       setAlbum(albumDetails);
     };
     if (albumId) {
@@ -20,11 +23,16 @@ const AlbumPage = ({ token }) => {
   if (!album) {
     return <div>Loading Album...</div>;
   }
+
   return (
-    <div>
-      <h2>{album.name}</h2>
-      <img height={"100px"} src={album.images[1].url} alt="" />
-      <TrackList tracks={album.tracks.items} />
+    <div className="album-page">
+      <AlbumHeader album={album} />
+      <ReviewBox user_id={token} album_id={album.id} />
+      <hr />
+      <div className="album-main-section">
+        <TrackList tracks={album.tracks.items} />
+        <ReviewList album_id={album.id} />
+      </div>
     </div>
   );
 };

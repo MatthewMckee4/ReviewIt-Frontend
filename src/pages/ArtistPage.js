@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import GetArtistDetails from "../components/Artist/GetArtistDetails";
 import GetAlbums from "../components/Artist/GetAlbums";
-import SortAlbums from "../components/Album/SortAlbums";
+import SortAlbums from "../components/utilities/SortAlbums";
 import ArtistHeader from "../components/ArtistPage/ArtistHeader";
 import ArtistSideBar from "../components/ArtistPage/ArtistSideBar";
-import AlbumSection from "../components/Album/AlbumSection";
+import AlbumSection from "../components/ArtistPage/AlbumSection";
 
 const ArtistPage = ({ token }) => {
   const { artistId } = useParams();
@@ -59,7 +59,7 @@ const ArtistPage = ({ token }) => {
       <hr />
       <div className="artist-main-section">
         <ArtistSideBar />
-        <AlbumSection // Use the AlbumSection component here
+        <AlbumSection
           isLoadingAlbums={isLoadingAlbums}
           albums={albums}
           handleSortingChange={handleSortingChange}

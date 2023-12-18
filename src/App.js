@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
@@ -8,13 +8,12 @@ import AlbumPage from "./pages/AlbumPage";
 
 function App() {
   const [token, setToken] = useState(() => {
-    // Initialize the token state from session storage (if it exists)
     return sessionStorage.getItem("token") || "";
   });
 
   const onTokenChange = (newToken) => {
     setToken(newToken);
-    sessionStorage.setItem("token", newToken); // Store the token in session storage
+    sessionStorage.setItem("token", newToken);
   };
 
   useEffect(() => {
@@ -28,26 +27,24 @@ function App() {
         ?.split("=")[1];
 
       if (newToken) {
-        window.location.hash = ""; // Clear the hash after extracting the token
+        window.location.hash = "";
         setToken(newToken);
-        sessionStorage.setItem("token", newToken); // Store the token in session storage
+        sessionStorage.setItem("token", newToken);
       }
     }
   }, []);
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Navbar token={token} onTokenChange={onTokenChange} />
-        <Routes>
-          <Route index element={<HomePage />} />
-          <Route
-            path="/artist/:artistId"
-            element={<ArtistPage token={token} />}
-          />
-          <Route path="/album/:albumId" element={<AlbumPage token={token} />} />
-        </Routes>
-      </BrowserRouter>
+      <Navbar token={token} onTokenChange={onTokenChange} />
+      <Routes>
+        <Route index element={<HomePage />} />
+        <Route
+          path="/artist/:artistId"
+          element={<ArtistPage token={token} />}
+        />
+        <Route path="/album/:albumId" element={<AlbumPage token={token} />} />
+      </Routes>
     </div>
   );
 }

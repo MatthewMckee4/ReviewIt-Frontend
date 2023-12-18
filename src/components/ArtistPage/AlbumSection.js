@@ -1,7 +1,6 @@
-// AlbumSection.js
 import React from "react";
-import AlbumSortingDropdown from "../ArtistPage/AlbumSortingDropdown"; // Import the SortingDropdown component
-import AlbumList from "./AlbumList"; // Import the AlbumList component
+import AlbumSortingDropdown from "./AlbumSortingDropdown";
+import AlbumList from "../Album/AlbumList";
 
 const AlbumSection = ({
   isLoadingAlbums,

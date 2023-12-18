@@ -76,15 +76,18 @@ nav div ul li a:visited {
 
 /* Artist Page */
 
-.artist-main-section {
+.artist-main-section,
+.album-main-section {
   display: flex; /* Make the container a flex container */
 }
-.artist-page hr {
+.artist-page hr,
+.album-main-section hr {
   border: none; /* Removes the default styling */
   border-top: 1px solid #ccc; /* Adds a horizontal border on top */
 }
 
-.artist-main-section .artist-side-bar {
+.artist-main-section .artist-side-bar,
+.album-main-section .track-container {
   width: 250px; /* Set the width of the sidebar */
   padding: 20px; /* Add some padding for content inside the sidebar */
 }
@@ -94,43 +97,52 @@ nav div ul li a:visited {
   padding: 20px; /* Add some padding for content inside the main section */
 }
 
-.artist-section .artist-img {
+.artist-header-section .artist-img,
+.album-header-section .album-img {
   width: 300px;
+  height: 300px;
 }
 
 /* Style for the sorting container */
-.artist-section {
+.artist-header-section,
+.album-header-section {
   display: flex;
   justify-content: space-evenly;
-  padding: 20px; /* Add padding for spacing */
+  padding: 20px;
 }
 
-.artist-image {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center horizontally and vertically */
-  margin-right: 30px; /* Adjust margin for spacing */
+.artist-details,
+.album-details {
+  width: 300px;
 }
 
-.artist-image h2 {
-  margin-top: 10px; /* Add margin between image and heading */
-}
-
-.artist-details {
-  max-width: 300px; /* Adjust the max width as needed */
-}
-
-.artist-details p {
+.artist-details p,
+.album-details p {
   font-size: 17px;
-  margin: 5px 0; /* Add vertical spacing between paragraphs */
+  margin: 5px 0;
   white-space: break-spaces;
 }
 
+.album-name,
 .artist-name {
   display: flex;
-  align-items: center; /* Center vertically */
-  justify-content: space-between; /* Create even spacing between text and logo */
-  font-size: 20px; /* Adjust the font size as needed */
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  max-width: 300px;
+  padding: 2px;
+}
+
+.album-name h2,
+.artist-name h2 {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.album-name a,
+.artist-name a {
+  display: flex;
+  align-items: center;
 }
 
 .spotify-link {
@@ -331,4 +343,63 @@ form {
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Review Box */
+.review-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  padding: 10px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.review-box textarea {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid white;
+  outline: none;
+  border-radius: 5px;
+  resize: vertical;
+  transition: border 0.3s ease;
+}
+
+.review-box textarea:focus {
+  border: 1px solid lightgrey;
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.input-group input[type="number"] {
+  width: 70px;
+  padding: 10px;
+  border: 0.5px solid #ffffff;
+  outline: none;
+  border-radius: 5px;
+}
+
+.input-group input[type="number"]:focus {
+  border: 0.5px solid #a6a6a6;
+}
+
+.input-group button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in;
+}
+
+.input-group button:hover {
+  background-color: lightgrey;
 }
