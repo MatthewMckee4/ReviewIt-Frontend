@@ -36,10 +36,10 @@ const GetAlbums = async (artistId, token) => {
       }
     }
 
-    return allAlbums; // Return the fetched albums
+    return allAlbums;
   } catch (error) {
     console.error("Error fetching artist albums:", error);
-    throw error; // Re-throw the error to handle it outside the function if needed
+    throw error;
   }
 };
 

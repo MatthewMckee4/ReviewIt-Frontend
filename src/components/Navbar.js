@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import { useUser } from "./Hooks/UseUser";
 
 const Navbar = ({ token, onTokenChange }) => {
   const CLIENT_ID = "300a45c9a2c74fbdba97db32cdb65c90";
@@ -11,17 +12,29 @@ const Navbar = ({ token, onTokenChange }) => {
     "%20"
   )}&response_type=token`;
 
+  const { user, updateUser } = useUser();
+
+  const navigate = useNavigate();
+
   useEffect(() => {
-    console.log(token);
-    const storedToken = sessionStorage.getItem("token");
-    if (storedToken) {
-      onTokenChange(storedToken);
+    if (token) {
+      fetch("https://api.spotify.com/v1/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          updateUser(data);
+        })
+        .catch((error) => console.error("Error:", error));
     }
-  }, [onTokenChange]);
+  }, [token]);
 
   const logout = () => {
+    navigate("/");
     onTokenChange("");
-    sessionStorage.removeItem("token");
+    updateUser({});
   };
 
   return (
@@ -34,6 +47,13 @@ const Navbar = ({ token, onTokenChange }) => {
             </Link>
           </li>
         </ul>
+      </div>
+      <div className="center">
+        {user && (
+          <p>
+            Welcome, {user.display_name} (ID: {user.id})
+          </p>
+        )}
       </div>
       <div className="rightSide">
         {token ? <SearchBar token={token} /> : null}
@@ -50,7 +70,6 @@ const Navbar = ({ token, onTokenChange }) => {
                 onClick={(e) => {
                   e.preventDefault();
                   logout();
-                  onTokenChange("");
                 }}
               >
                 Logout

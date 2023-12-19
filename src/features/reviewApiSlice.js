@@ -4,7 +4,6 @@ const reviewsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getReviews: builder.query({
       query: (data) => {
-        console.log(data);
         const queryParams = Object.keys(data)
           .filter((key) => data[key] !== "")
           .map(

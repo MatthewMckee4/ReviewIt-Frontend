@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import ArtistPage from "./pages/ArtistPage";
 import AlbumPage from "./pages/AlbumPage";
+import { UserProvider } from "./components/Hooks/UseUser";
 
 function App() {
   const [token, setToken] = useState(() => {
@@ -35,17 +36,19 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <Navbar token={token} onTokenChange={onTokenChange} />
-      <Routes>
-        <Route index element={<HomePage />} />
-        <Route
-          path="/artist/:artistId"
-          element={<ArtistPage token={token} />}
-        />
-        <Route path="/album/:albumId" element={<AlbumPage token={token} />} />
-      </Routes>
-    </div>
+    <UserProvider>
+      <div className="App">
+        <Navbar token={token} onTokenChange={onTokenChange} />
+        <Routes>
+          <Route index element={<HomePage />} />
+          <Route
+            path="/artist/:artistId"
+            element={<ArtistPage token={token} />}
+          />
+          <Route path="/album/:albumId" element={<AlbumPage token={token} />} />
+        </Routes>
+      </div>
+    </UserProvider>
   );
 }
 

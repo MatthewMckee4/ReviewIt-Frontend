@@ -358,7 +358,8 @@ form {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.review-box textarea {
+.review-box textarea,
+.review-box input[type="text"] {
   width: calc(100% - 22px);
   padding: 10px;
   margin-bottom: 10px;

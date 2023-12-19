@@ -5,10 +5,13 @@ import TrackList from "../components/Track/TrackList";
 import AlbumHeader from "../components/AlbumPage/AlbumHeader";
 import { ReviewBox } from "../components/AlbumPage/ReviewBox";
 import ReviewList from "../components/Review/ReviewList";
+import { useUser } from "../components/Hooks/UseUser";
 
 const AlbumPage = ({ token }) => {
   const { albumId } = useParams();
   const [album, setAlbum] = useState(null);
+
+  const { user, updateUser } = useUser();
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -27,7 +30,7 @@ const AlbumPage = ({ token }) => {
   return (
     <div className="album-page">
       <AlbumHeader album={album} />
-      <ReviewBox user_id={token} album_id={album.id} />
+      <ReviewBox user_id={user.id} album_id={album.id} />
       <hr />
       <div className="album-main-section">
         <TrackList tracks={album.tracks.items} />
