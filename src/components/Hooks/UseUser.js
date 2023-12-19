@@ -12,7 +12,15 @@ export const UserProvider = ({ children }) => {
   }, [user]);
 
   const updateUser = (newUserInfo) => {
-    setUser(newUserInfo);
+    const display_name = newUserInfo.display_name;
+
+    if (newUserInfo.images && newUserInfo.images.length > 0) {
+      const lastImage = newUserInfo.images[newUserInfo.images.length - 1];
+
+      setUser({ ...newUserInfo, image: lastImage, name: display_name });
+    } else {
+      setUser({ ...newUserInfo, name: display_name });
+    }
   };
 
   return (
