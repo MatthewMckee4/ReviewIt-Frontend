@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { useUser } from "./Hooks/UseUser";
+import axios from "axios"; // Import axios
 
 const Navbar = ({ token, onTokenChange }) => {
   const CLIENT_ID = "300a45c9a2c74fbdba97db32cdb65c90";
@@ -18,18 +19,18 @@ const Navbar = ({ token, onTokenChange }) => {
 
   useEffect(() => {
     if (token) {
-      fetch("https://api.spotify.com/v1/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          updateUser(data);
+      axios
+        .get("https://api.spotify.com/v1/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          updateUser(response.data);
         })
         .catch((error) => console.error("Error:", error));
     }
-  }, [token]);
+  }, [token, updateUser]);
 
   const logout = () => {
     navigate("/");
@@ -51,7 +52,10 @@ const Navbar = ({ token, onTokenChange }) => {
       <div className="center">
         {user && (
           <p>
-            Welcome, {user.display_name} (ID: {user.id})
+            Welcome, {user.display_name} (ID: {user.id}),{" "}
+            {user.image && (
+              <img src={user.image} alt="profile" width={15} height={15} />
+            )}
           </p>
         )}
       </div>

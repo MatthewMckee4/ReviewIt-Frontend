@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
+import { useCreateUserMutation } from "../../features/userApiSlice";
 
 const UserContext = createContext();
 
@@ -7,19 +8,28 @@ export const UserProvider = ({ children }) => {
     return JSON.parse(sessionStorage.getItem("user")) || null;
   });
 
+  const [createUser] = useCreateUserMutation();
+
   useEffect(() => {
     sessionStorage.setItem("user", JSON.stringify(user));
   }, [user]);
 
-  const updateUser = (newUserInfo) => {
+  const updateUser = async (newUserInfo) => {
+    console.log("Updating user:", newUserInfo);
     const display_name = newUserInfo.display_name;
+    let userPayload = { ...newUserInfo, name: display_name };
 
     if (newUserInfo.images && newUserInfo.images.length > 0) {
-      const lastImage = newUserInfo.images[newUserInfo.images.length - 1];
+      const lastImage = newUserInfo.images[newUserInfo.images.length - 1].url;
+      userPayload = { ...userPayload, image: lastImage };
+    }
 
-      setUser({ ...newUserInfo, image: lastImage, name: display_name });
-    } else {
-      setUser({ ...newUserInfo, name: display_name });
+    setUser(userPayload);
+    if (!userPayload.id) return;
+    try {
+      await createUser(userPayload);
+    } catch (error) {
+      console.error("Error updating user:", error);
     }
   };
 
