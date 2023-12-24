@@ -18,6 +18,8 @@ const Navbar = ({ token, onTokenChange }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    let isMounted = true;
+
     if (token) {
       axios
         .get("https://api.spotify.com/v1/me", {
@@ -26,11 +28,15 @@ const Navbar = ({ token, onTokenChange }) => {
           },
         })
         .then((response) => {
-          updateUser(response.data);
+          if (isMounted) updateUser(response.data);
         })
         .catch((error) => console.error("Error:", error));
     }
-  }, [token, updateUser]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [token]);
 
   const logout = () => {
     navigate("/");
@@ -52,9 +58,15 @@ const Navbar = ({ token, onTokenChange }) => {
       <div className="center">
         {user && (
           <p>
-            Welcome, {user.display_name} (ID: {user.id}),{" "}
+            Welcome {user.display_name}{" "}
             {user.image && (
-              <img src={user.image} alt="profile" width={15} height={15} />
+              <img
+                src={user.image}
+                alt="profile"
+                width={15}
+                height={15}
+                style={{ borderRadius: "50%" }}
+              />
             )}
           </p>
         )}
