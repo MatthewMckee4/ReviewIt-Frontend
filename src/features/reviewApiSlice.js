@@ -21,8 +21,8 @@ const reviewsApiSlice = apiSlice.injectEndpoints({
         return response.status === 200 && !result.isError;
       },
       keepUnusedDataFor: 5,
-      transformResponse: (responseData) => {
-        return responseData;
+      transformResponse: (response) => {
+        return response.json();
       },
       providesTags: (result, error, arg) => {
         return [{ type: "Review", id: "LIST" }];

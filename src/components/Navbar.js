@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { useUser } from "./Hooks/UseUser";
-import axios from "axios"; // Import axios
+import axios from "axios";
 
 const Navbar = ({ token, onTokenChange }) => {
   const CLIENT_ID = "300a45c9a2c74fbdba97db32cdb65c90";
@@ -14,29 +14,13 @@ const Navbar = ({ token, onTokenChange }) => {
   )}&response_type=token`;
 
   const { user, updateUser } = useUser();
-
   const navigate = useNavigate();
 
   useEffect(() => {
-    let isMounted = true;
-
     if (token) {
-      axios
-        .get("https://api.spotify.com/v1/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          if (isMounted) updateUser(response.data);
-        })
-        .catch((error) => console.error("Error:", error));
+      fetchUserData(token, updateUser);
     }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [token]);
+  }, [token, updateUser]);
 
   const logout = () => {
     navigate("/");
@@ -96,6 +80,19 @@ const Navbar = ({ token, onTokenChange }) => {
       </div>
     </nav>
   );
+};
+
+const fetchUserData = async (token, updateUser) => {
+  try {
+    const response = await axios.get("https://api.spotify.com/v1/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    updateUser(response.data);
+  } catch (error) {
+    console.error("Error:", error);
+  }
 };
 
 export default Navbar;
