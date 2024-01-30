@@ -12,32 +12,68 @@ const ReviewList = ({ user_id, album_id }) => {
 
   let content;
 
-  if (isLoading) content = <p>Loading...</p>;
+  if (isLoading) {
+    content = <p style={{ width: "100%" }}>Loading...</p>;
+  }
 
   if (isError) {
-    content = <p className="errmsg">{error?.data?.message}</p>;
+    content = (
+      <p style={{ width: "100%" }} className="errmsg">
+        {error?.data?.message}
+      </p>
+    );
   }
 
   if (isSuccess) {
     content = (
-      <div>
-        <h2>Review List</h2>
-        <div>
-          <ul>
-            {reviews.map((review) => (
-              <li key={review.album_id + review.user_id}>
-                User ID: {review.user_id}
-                {review.rating && <span>, Rating: {review.rating}</span>}
-                {review.text && <span>, Text: {review.text}</span>}
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div style={{ width: "100%" }}>
+        <h2>Reviews</h2>
+        <ul style={{ listStyleType: "none", padding: 0, width: "100%" }}>
+          {reviews.map((review) => (
+            <li key={review.album_id + review.user_id} style={reviewItemStyle}>
+              <div style={leftContentStyle}>
+                {review.user.image && (
+                  <img src={review.user.image} alt="User" style={imageStyle} />
+                )}
+                <p style={{ marginLeft: "10px" }}>{review.text}</p>
+              </div>
+              <div style={ratingStyle}>
+                {review.rating && <span>{review.rating}</span>}
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
 
   return content;
+};
+
+const reviewItemStyle = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  borderRadius: "8px",
+  margin: "10px 0",
+};
+
+const leftContentStyle = {
+  display: "flex",
+  alignItems: "center",
+  flex: 1,
+};
+
+const imageStyle = {
+  width: "50px",
+  height: "50px",
+  borderRadius: "50%",
+  objectFit: "cover",
+};
+
+const ratingStyle = {
+  flexShrink: 0,
+  marginLeft: "20px",
 };
 
 export default ReviewList;
