@@ -11,7 +11,7 @@ const AlbumPage = ({ token }) => {
   const { albumId } = useParams();
   const [album, setAlbum] = useState(null);
 
-  const { user, updateUser } = useUser();
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchDetails = async () => {

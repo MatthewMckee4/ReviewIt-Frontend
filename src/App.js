@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import ArtistPage from "./pages/ArtistPage";
 import AlbumPage from "./pages/AlbumPage";
+import SearchResultsPage from "./pages/SearchResultsPage";
 import { UserProvider } from "./components/Hooks/UseUser";
 
 function App() {
@@ -46,8 +47,13 @@ function App() {
             element={<ArtistPage token={token} />}
           />
           <Route path="/album/:albumId" element={<AlbumPage token={token} />} />
+          <Route
+            path="/search-results"
+            element={<SearchResultsPage token={token} />}
+          />
         </Routes>
       </div>
+      <footer> </footer>
     </UserProvider>
   );
 }

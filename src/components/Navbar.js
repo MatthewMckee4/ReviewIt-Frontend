@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import SearchBar from "./SearchBar";
+import SearchMenu from "./Search/SearchBar";
 import { useUser } from "./Hooks/UseUser";
 import axios from "axios";
 
@@ -56,7 +56,7 @@ const Navbar = ({ token, onTokenChange }) => {
         )}
       </div>
       <div className="rightSide">
-        {token ? <SearchBar token={token} /> : null}
+        {token ? <SearchMenu token={token} /> : null}
         <ul className="underline-list">
           {!token ? (
             <li>
