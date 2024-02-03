@@ -22,7 +22,7 @@ const reviewsApiSlice = apiSlice.injectEndpoints({
       },
       keepUnusedDataFor: 5,
       transformResponse: (response) => {
-        return response.json();
+        return response;
       },
       providesTags: (result, error, arg) => {
         return [{ type: "Review", id: "LIST" }];

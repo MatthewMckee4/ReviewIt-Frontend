@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import SearchMenu from "./Search/SearchBar";
+import SearchMenu from "./Search/SearchMenu";
 import { useUser } from "./Hooks/UseUser";
 import axios from "axios";
 

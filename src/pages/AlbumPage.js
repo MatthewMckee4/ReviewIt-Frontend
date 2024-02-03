@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import GetAlbumDetails from "../components/Album/GetAlbumDetails";
+import getAlbumDetails from "../components/Album/GetAlbumDetails";
 import TrackList from "../components/Track/TrackList";
 import AlbumHeader from "../components/AlbumPage/AlbumHeader";
-import { ReviewBox } from "../components/AlbumPage/ReviewBox";
+import { ReviewBox } from "../components/Review/ReviewBox";
 import ReviewList from "../components/Review/ReviewList";
 import { useUser } from "../components/Hooks/UseUser";
 
 const AlbumPage = ({ token }) => {
   const { albumId } = useParams();
   const [album, setAlbum] = useState(null);
-
   const { user } = useUser();
 
   useEffect(() => {
     const fetchDetails = async () => {
-      const albumDetails = await GetAlbumDetails(albumId, token);
+      const albumDetails = await getAlbumDetails(albumId, token);
       setAlbum(albumDetails);
     };
     if (albumId) {
