@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface TokenContextType {
     token: string;
@@ -18,6 +18,18 @@ export const TokenProvider: React.FC<{ children: React.ReactNode }> = ({
         window.localStorage.setItem("token", newToken || "");
         setTokenInternal(newToken);
     };
+
+    useEffect(() => {
+        const handleBeforeUnload = () => {
+            window.localStorage.removeItem("token");
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+    }, []);
 
     const contextValue: TokenContextType = {
         token,

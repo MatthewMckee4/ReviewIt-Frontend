@@ -1,4 +1,10 @@
-import React, { createContext, useState, useContext, useCallback } from "react";
+import React, {
+    createContext,
+    useState,
+    useContext,
+    useCallback,
+    useEffect,
+} from "react";
 import { useCreateUserMutation } from "../../features/userApiSlice";
 import SpotifyUser from "../User/SpotifyUser";
 import { User } from "../../types/User";
@@ -24,7 +30,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         async (newUserInfo: Partial<SpotifyUser>) => {
             window.localStorage.setItem("user", JSON.stringify(newUserInfo));
             const { display_name, images, id } = newUserInfo;
-            let userPayload: Partial<User> = {
+            let userPayload: User = {
                 display_name: display_name || "",
                 image: images?.[0]?.url || "",
                 id: id || "",
@@ -42,8 +48,24 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         [createUser]
     );
 
+    useEffect(() => {
+        const handleBeforeUnload = () => {
+            window.localStorage.removeItem("user");
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+    }, []);
+
+    const contextValue: UserContextType = {
+        user,
+        setUser,
+    };
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={contextValue}>
             {children}
         </UserContext.Provider>
     );
