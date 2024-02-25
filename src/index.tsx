@@ -1,5 +1,5 @@
 import React from "react";
-import { createRoot } from "react-dom"; // Import createRoot
+import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
@@ -9,8 +9,7 @@ import { Provider } from "react-redux";
 import { UserProvider } from "./components/Hooks/UseUser";
 import { TokenProvider } from "./components/Hooks/UseToken";
 
-// Use createRoot instead of ReactDOM.render
-createRoot(document.getElementById("root")).render(
+ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <UserProvider>
@@ -21,5 +20,6 @@ createRoot(document.getElementById("root")).render(
                 </TokenProvider>
             </UserProvider>
         </Provider>
-    </React.StrictMode>
+    </React.StrictMode>,
+    document.getElementById("root")
 );
