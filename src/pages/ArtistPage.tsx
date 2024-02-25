@@ -6,13 +6,18 @@ import SortAlbums from "../components/utilities/SortAlbums";
 import ArtistHeader from "../components/ArtistPage/ArtistHeader";
 import ArtistSideBar from "../components/ArtistPage/ArtistSideBar";
 import AlbumSection from "../components/ArtistPage/AlbumSection";
+import { Artist } from "../types/Artist";
+import { Album } from "../types/Album";
+import { useTokenState } from "../components/Hooks/UseToken";
 
-const ArtistPage = ({ token }) => {
-    const { artistId } = useParams();
-    const [albums, setAlbums] = useState([]);
-    const [artist, setArtist] = useState(null);
-    const [isLoadingAlbums, setIsLoadingAlbums] = useState(true);
-    const [sortingOption, setSortingOption] = useState("release_date_desc");
+export default function ArtistPage() {
+    const { artistId } = useParams<{ artistId: string }>();
+    const [albums, setAlbums] = useState<Album[]>([]);
+    const [artist, setArtist] = useState<Artist | null>(null);
+    const [token] = useTokenState();
+    const [isLoadingAlbums, setIsLoadingAlbums] = useState<boolean>(true);
+    const [sortingOption, setSortingOption] =
+        useState<string>("release_date_desc");
 
     useEffect(() => {
         const fetchArtistData = async () => {
@@ -40,7 +45,9 @@ const ArtistPage = ({ token }) => {
         }
     }, [artistId, token, sortingOption]);
 
-    const handleSortingChange = (event) => {
+    const handleSortingChange = (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => {
         const newSortingOption = event.target.value;
         setSortingOption(newSortingOption);
 
@@ -71,6 +78,4 @@ const ArtistPage = ({ token }) => {
             </div>
         </div>
     );
-};
-
-export default ArtistPage;
+}

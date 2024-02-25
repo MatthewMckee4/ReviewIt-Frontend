@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
     useCreateReviewMutation,
     useUpdateReviewMutation,
@@ -6,9 +6,14 @@ import {
     useGetReviewsQuery,
 } from "../../features/reviewApiSlice";
 
-export const ReviewBox = ({ user_id, album_id }) => {
-    const [text, setText] = useState("");
-    const [rating, setRating] = useState(null);
+type ReviewBoxProps = {
+    user_id: string;
+    album_id: string;
+};
+
+export default function ReviewBox({ user_id, album_id }: ReviewBoxProps) {
+    const [text, setText] = useState<string>("");
+    const [rating, setRating] = useState<number | null>(null);
 
     const [addReview] = useCreateReviewMutation();
     const { data: review } = useGetReviewsQuery({ user_id, album_id });
@@ -17,20 +22,20 @@ export const ReviewBox = ({ user_id, album_id }) => {
 
     useEffect(() => {
         if (review && review.length > 0) {
-            setRating(review[0].rating ? review[0].rating.toString() : "");
-            setText(review[0].text || "");
+            setRating(review[0].rating);
+            setText(review[0].text);
         }
     }, [review]);
 
-    const handleTextChange = (event) => {
+    const handleTextChange = (
+        event: React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
         setText(event.target.value);
     };
 
-    const handleRatingChange = (event) => {
+    const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const input = event.target.value;
-        console.log(input);
         const parsedRating = parseFloat(input);
-        console.log(parsedRating);
 
         if (
             !isNaN(parsedRating) &&
@@ -38,37 +43,35 @@ export const ReviewBox = ({ user_id, album_id }) => {
             parsedRating <= 10 &&
             input.length <= 4
         ) {
-            if (parsedRating === 10) {
-                setRating(parsedRating);
-            } else {
-                setRating(input);
-            }
-        } else if (input === "") {
+            setRating(parsedRating);
+        } else {
             setRating(null);
         }
     };
 
     const handleSubmit = async () => {
         try {
-            if (review) {
+            if (review && review.length > 0) {
                 const payload = {
+                    id: review[0].id,
                     user_id,
                     album_id,
                     text,
-                    rating: parseFloat(rating) || null,
+                    rating: typeof rating === "number" ? rating : null,
                 };
                 if (text || rating) {
-                    console.log("updating review");
-                    console.log(payload);
                     await updateReview(payload);
                 } else {
-                    await deleteReview({ user_id, album_id });
+                    await deleteReview({ id: review[0].id });
                 }
             } else {
+                const payload = {
+                    user_id,
+                    album_id,
+                    text: text || "",
+                    rating: typeof rating === "number" ? rating : null,
+                };
                 if (text || rating) {
-                    let payload = { user_id, album_id };
-                    if (text) payload.text = text;
-                    if (rating) payload.rating = parseFloat(rating) || null;
                     await addReview(payload);
                 }
             }
@@ -79,21 +82,21 @@ export const ReviewBox = ({ user_id, album_id }) => {
     };
 
     return (
-        <div className="review-box">
+        <div>
             <textarea
                 placeholder="Review"
                 value={text}
                 onChange={handleTextChange}
             />
-            <div className="input-group">
+            <div>
                 <input
                     type="text"
                     placeholder="Rating (0-10)"
-                    value={rating !== null ? rating.toString() : ""}
+                    value={rating === null ? "" : rating}
                     onChange={handleRatingChange}
                 />
                 <button onClick={handleSubmit}>Submit</button>
             </div>
         </div>
     );
-};
+}
