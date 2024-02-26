@@ -99,6 +99,7 @@ const Navbar: React.FC = () => {
         setToken("");
         setUser({});
         navigate("/");
+        window.location.reload();
     };
 
     return (
