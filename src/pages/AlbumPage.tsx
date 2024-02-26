@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import AlbumHeader from "../components/AlbumPage/AlbumHeader";
+import AlbumHeader from "../components/Album/AlbumHeader";
 import TrackList from "../components/Track/TrackList";
 import ReviewList from "../components/Review/ReviewList";
 import ReviewBox from "../components/Review/ReviewBox";

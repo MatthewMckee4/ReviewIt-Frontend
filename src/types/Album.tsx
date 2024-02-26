@@ -1,3 +1,4 @@
+import { Artist } from "./Artist";
 import { Track } from "./Track";
 
 export type Album = {
@@ -9,6 +10,12 @@ export type Album = {
         url: string;
     }>;
     tracks: Tracks;
+    artists: Array<Artist>;
+    release_date_precision: string;
+    label: string;
+    external_urls: {
+        spotify: string;
+    };
 };
 
 type Tracks = {

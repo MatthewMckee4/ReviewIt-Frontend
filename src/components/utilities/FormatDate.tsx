@@ -1,4 +1,4 @@
-function formatDate(dateString) {
+export default function formatDate(dateString: string) {
     const months = [
         "January",
         "February",
@@ -22,5 +22,3 @@ function formatDate(dateString) {
     const formattedDate = `${day} ${months[monthIndex]} ${year}`;
     return formattedDate;
 }
-
-export default formatDate;

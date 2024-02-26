@@ -1,5 +1,10 @@
 import axios from "axios";
-const GetArtistDetails = async (artistId, token) => {
+import { Artist } from "../types/Artist";
+
+export default async function GetArtistDetails(
+    token: string,
+    artistId: string
+): Promise<Artist> {
     try {
         const { data } = await axios.get(
             `https://api.spotify.com/v1/artists/${artistId}`,
@@ -9,11 +14,9 @@ const GetArtistDetails = async (artistId, token) => {
                 },
             }
         );
-        return data;
+        return data as Artist;
     } catch (error) {
         console.error("Error fetching artist details:", error);
         throw error;
     }
-};
-
-export default GetArtistDetails;
+}

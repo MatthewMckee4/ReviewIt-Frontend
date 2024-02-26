@@ -1,9 +1,10 @@
 import React from "react";
 import SpotifyLogo from "../../assets/Spotify_Icon_RGB_Green.png";
-import formatDate from "../../components/utilities/FormatDate";
+import formatDate from "../utilities/FormatDate";
 import { Link } from "react-router-dom";
+import { AlbumProps } from "./props/AlbumProps";
 
-const AlbumHeader = ({ album }) => {
+export default function AlbumHeader({ album }: AlbumProps) {
     return (
         <div className="album-header-section">
             <div>
@@ -57,6 +58,4 @@ const AlbumHeader = ({ album }) => {
             </div>
         </div>
     );
-};
-
-export default AlbumHeader;
+}

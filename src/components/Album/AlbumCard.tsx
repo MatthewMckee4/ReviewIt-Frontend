@@ -1,11 +1,7 @@
 import { Link } from "react-router-dom";
-import { Album } from "../../types/Album";
+import { AlbumProps } from "./props/AlbumProps";
 
-type AlbumCardProps = {
-    album: Album;
-};
-
-export default function AlbumCard({ album }: AlbumCardProps) {
+export default function AlbumCard({ album }: AlbumProps) {
     return (
         <Link to={`/album/${album.id}`}>
             <div className="max-w-xs rounded overflow-hidden shadow-lg bg-white">

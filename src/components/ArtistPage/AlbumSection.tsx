@@ -2,12 +2,13 @@ import AlbumSortingDropdown from "./AlbumSortingDropdown";
 import AlbumList from "../Album/AlbumList";
 import { Spinner } from "flowbite-react";
 import { Album } from "../../types/Album";
+import { SortingOption } from "../../types/SortingOption";
 
 type AlbumSectionProps = {
     isLoadingAlbums: boolean;
     albums: Array<Album>;
     handleSortingChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-    sortingOption: string;
+    sortingOption: SortingOption;
 };
 
 export default function AlbumSection({

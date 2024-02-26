@@ -19,8 +19,6 @@ export default function App() {
                     .split("&")
                     .find((elem) => elem.startsWith("access_token"))
                     ?.split("=")[1] || "";
-            console.log("Token:", token);
-            console.log("Hash:", hash);
             window.location.hash = "";
             setToken(token);
         }
@@ -33,7 +31,10 @@ export default function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/artist/:artistId" element={<ArtistPage />} />
                 <Route path="/album/:albumId" element={<AlbumPage />} />
-                <Route path="/search-results" element={<SearchResultsPage />} />
+                <Route
+                    path="/search-results/:searchKey"
+                    element={<SearchResultsPage />}
+                />
             </Routes>
         </div>
     );

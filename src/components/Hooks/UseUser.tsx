@@ -48,18 +48,6 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         [createUser]
     );
 
-    useEffect(() => {
-        const handleBeforeUnload = () => {
-            window.localStorage.removeItem("user");
-        };
-
-        window.addEventListener("beforeunload", handleBeforeUnload);
-
-        return () => {
-            window.removeEventListener("beforeunload", handleBeforeUnload);
-        };
-    }, []);
-
     const contextValue: UserContextType = {
         user,
         setUser,

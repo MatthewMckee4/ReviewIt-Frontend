@@ -1,17 +1,18 @@
 import axios from "axios";
+import { Artist } from "../types/Artist";
 
 const ARTIST_LENGTH = 10;
 const MAX_ARTISTS = 50;
 
-const SearchArtists = async (
-    token,
-    searchKey,
-    numArtists = ARTIST_LENGTH,
-    offset = 0
-) => {
+export default async function SearchArtists(
+    token: string,
+    searchKey: string,
+    numArtists: number = ARTIST_LENGTH,
+    offset: number = 0
+): Promise<Artist[]> {
     try {
         let totalArtists = 0;
-        const allArtists = [];
+        const allArtists: Artist[] = [];
         let current_offset = offset;
 
         while (totalArtists < numArtists) {
@@ -30,7 +31,7 @@ const SearchArtists = async (
                 }
             );
 
-            const artists = response.data.artists.items;
+            const artists: Artist[] = response.data.artists.items;
 
             if (artists.length === 0) {
                 break;
@@ -50,6 +51,4 @@ const SearchArtists = async (
         console.error("Error fetching artists page:", error);
         throw error;
     }
-};
-
-export default SearchArtists;
+}

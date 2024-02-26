@@ -19,18 +19,6 @@ export const TokenProvider: React.FC<{ children: React.ReactNode }> = ({
         setTokenInternal(newToken);
     };
 
-    useEffect(() => {
-        const handleBeforeUnload = () => {
-            window.localStorage.removeItem("token");
-        };
-
-        window.addEventListener("beforeunload", handleBeforeUnload);
-
-        return () => {
-            window.removeEventListener("beforeunload", handleBeforeUnload);
-        };
-    }, []);
-
     const contextValue: TokenContextType = {
         token,
         setToken,
@@ -42,7 +30,6 @@ export const TokenProvider: React.FC<{ children: React.ReactNode }> = ({
         </TokenContext.Provider>
     );
 };
-
 export const useToken = (): TokenContextType => {
     const context = useContext(TokenContext);
     if (context === undefined) {

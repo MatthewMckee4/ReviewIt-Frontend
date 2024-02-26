@@ -40,9 +40,9 @@ const RightSide = ({
     AUTH_URL: string;
     logout: () => void;
 }) => (
-    <div className="flex items-center space-x-4">
-        {token ? <SearchMenu token={token} /> : null}
-        <ul className="flex items-center space-x-4">
+    <div className="flex items-center">
+        {token ? <SearchMenu /> : null}
+        <ul className="flex items-center">
             {!token ? (
                 <li>
                     <a href={AUTH_URL} className="text-sm text-blue-500">
@@ -51,16 +51,12 @@ const RightSide = ({
                 </li>
             ) : (
                 <li>
-                    <a
-                        href="/"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            logout();
-                        }}
-                        className="text-sm text-red-500"
+                    <button
+                        onClick={logout}
+                        className="bg-white border border-gray-300 px-2 py-1"
                     >
                         Logout
-                    </a>
+                    </button>
                 </li>
             )}
         </ul>
@@ -80,6 +76,7 @@ const Navbar: React.FC = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            if (!token) return;
             try {
                 const response = await axios.get(
                     "https://api.spotify.com/v1/me",
@@ -89,6 +86,7 @@ const Navbar: React.FC = () => {
                         },
                     }
                 );
+                console.log("Response:", response.data);
                 setUser(response.data);
             } catch (error) {
                 console.error("Error:", error);

@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import SearchArtists from "../components/Artist/SearchArtists";
+import { Link, useParams } from "react-router-dom";
 import { useTokenState } from "../components/Hooks/UseToken";
 import { Artist } from "../types/Artist";
+import SearchArtists from "../api/SearchArtists";
 
 export default function SearchResultsPage() {
     const [searchResults, setSearchResults] = useState<Artist[]>([]);
     const [offset, setOffset] = useState<number>(0);
-    const location = useLocation();
     const [token] = useTokenState();
 
-    const searchKey = new URLSearchParams(location.search).get("query");
+    const { searchKey } = useParams();
 
     const fetchMoreArtists = async () => {
         try {
