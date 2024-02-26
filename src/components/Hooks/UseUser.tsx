@@ -1,10 +1,4 @@
-import React, {
-    createContext,
-    useState,
-    useContext,
-    useCallback,
-    useEffect,
-} from "react";
+import React, { createContext, useState, useContext, useCallback } from "react";
 import { useCreateUserMutation } from "../../features/userApiSlice";
 import SpotifyUser from "../User/SpotifyUser";
 import { User } from "../../types/User";
