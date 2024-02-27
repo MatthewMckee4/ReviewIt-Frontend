@@ -5,11 +5,10 @@ import { Artist } from "../types/Artist";
 import SearchArtists from "../api/SearchArtists";
 
 export default function SearchResultsPage() {
+    const { searchKey } = useParams();
     const [searchResults, setSearchResults] = useState<Artist[]>([]);
     const [offset, setOffset] = useState<number>(0);
     const [token] = useTokenState();
-
-    const { searchKey } = useParams();
 
     const fetchMoreArtists = async () => {
         try {
