@@ -15,14 +15,14 @@ export default function SearchBar({
         <form onSubmit={handleSubmit} className="flex items-center">
             <input
                 type="text"
-                className="border border-black-300 px-2 py-1 mr-1 focus:ring-transparent focus:ring-0 outline-none"
+                className="border border-[--background-400] px-2 py-1 mr-1  focus:ring-[--secondary-600]  focus:border-[--background-400] "
                 placeholder="Search"
                 value={searchKey}
                 onChange={(e) => setSearchKey(e.target.value)}
             />
             <button
                 type="submit"
-                className="bg-white border border-gray-300 px-2 py-1 mr-1"
+                className="border border-gray-300 px-2 py-1 mr-1"
             >
                 Search
             </button>

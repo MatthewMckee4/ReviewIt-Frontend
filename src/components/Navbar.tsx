@@ -33,27 +33,34 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="flex justify-between items-center h-16 px-4 py-2 bg-gray-200">
+        <nav className="flex justify-between items-center h-16 px-4 py-2">
             <div className="flex items-center space-x-4">
                 <Link to="/" className="text-gray-700">
                     Home
                 </Link>
             </div>
-            {user && <UserProfile user={user} />}
-            <AuthControls token={token} AUTH_URL={AUTH_URL} logout={logout} />
+
+            <AuthControls
+                user={user}
+                token={token}
+                AUTH_URL={AUTH_URL}
+                logout={logout}
+            />
         </nav>
     );
 }
 
 type AuthControlsProps = {
+    user: User | null;
     token: string;
     AUTH_URL: string;
     logout: () => void;
 };
 
-function AuthControls({ token, AUTH_URL, logout }: AuthControlsProps) {
+function AuthControls({ user, token, AUTH_URL, logout }: AuthControlsProps) {
     return (
         <div className="flex items-center">
+            {user && <UserProfile user={user} />}
             {token ? <SearchMenu /> : null}
             <AuthButton token={token} AUTH_URL={AUTH_URL} logout={logout} />
         </div>
@@ -62,9 +69,9 @@ function AuthControls({ token, AUTH_URL, logout }: AuthControlsProps) {
 
 function UserProfile({ user }: { user: User }) {
     return (
-        <div className="flex items-center space-x-4">
-            <p className="text-sm text-gray-700">
-                Welcome {user.display_name}{" "}
+        <div className="">
+            <p className="text-sm mr-2">
+                Profile
                 {user.image && (
                     <img
                         src={user.image}
@@ -87,13 +94,13 @@ function AuthButton({ token, AUTH_URL, logout }: AuthButtonProps) {
     return (
         <>
             {!token ? (
-                <a href={AUTH_URL} className="text-sm text-blue-500">
+                <a href={AUTH_URL} className="border border-gray-300 px-2 py-1">
                     Login to Spotify
                 </a>
             ) : (
                 <button
                     onClick={logout}
-                    className="bg-white border border-gray-300 px-2 py-1"
+                    className="border border-gray-300 px-2 py-1"
                 >
                     Logout
                 </button>
