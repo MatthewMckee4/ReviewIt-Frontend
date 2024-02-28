@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useCallback } from "react";
 import { useCreateUserMutation } from "../../features/userApiSlice";
-import SpotifyUser from "../User/SpotifyUser";
+import { SpotifyUser } from "../../types/SpotifyUser";
 import { User } from "../../types/User";
 
 interface UserContextType {

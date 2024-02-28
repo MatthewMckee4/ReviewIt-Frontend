@@ -9,7 +9,8 @@ import { Album } from "../types/Album";
 import { useTokenState } from "../components/Hooks/UseToken";
 import { SortingOption } from "../types/SortingOption";
 import GetAlbums from "../api/GetAlbums";
-import GetArtistDetails from "../api/GetArtistDetails";
+import GetArtistData from "../api/GetArtistData";
+import NoToken from "../components/utilities/NoToken";
 
 export default function ArtistPage() {
     const [token] = useTokenState();
@@ -27,7 +28,11 @@ export default function ArtistPage() {
 
         const fetchArtistData = async () => {
             try {
-                const artistDetails = await GetArtistDetails(token, artistId);
+                const artistDetails = await GetArtistData(token, artistId);
+                if (!artistDetails) {
+                    console.error("No artist details found");
+                    return;
+                }
                 setArtist(artistDetails);
 
                 setIsLoadingAlbums(true);
@@ -56,11 +61,7 @@ export default function ArtistPage() {
     };
 
     if (!token) {
-        return (
-            <div>
-                <p>Token not found. Please login to continue.</p>
-            </div>
-        );
+        return <NoToken />;
     }
 
     if (!artist) {

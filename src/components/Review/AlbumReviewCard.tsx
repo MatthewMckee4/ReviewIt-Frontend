@@ -4,7 +4,7 @@ type ReviewCardProps = {
     review: Review;
 };
 
-export default function ReviewCard({ review }: ReviewCardProps) {
+export default function AlbumReviewCard({ review }: ReviewCardProps) {
     return (
         <li>
             <div>

@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchMenu from "./Search/SearchMenu";
-import { useUserState } from "./Hooks/UseUser";
-import { useTokenState } from "./Hooks/UseToken";
-import { User } from "../types/User";
-import GetUserData from "../api/GetUserData";
+import { useUserState } from "../Hooks/UseUser";
+import { useTokenState } from "../Hooks/UseToken";
+import { User } from "../../types/User";
+import GetUserData from "../../api/GetUserData";
+import NavbarItem from "./NavbarItem";
+import AuthenticationButton from "./AuthenticationButton";
+import ProfileLink from "./ProfileLink";
 
 export default function Navbar() {
     const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID || "";
@@ -34,11 +37,9 @@ export default function Navbar() {
 
     return (
         <nav className="flex justify-between items-center h-16 px-4 py-2">
-            <div className="flex items-center space-x-4">
-                <Link to="/" className="text-gray-700">
-                    Home
-                </Link>
-            </div>
+            <NavbarItem>
+                <Link to="/">Home</Link>
+            </NavbarItem>
 
             <AuthControls
                 user={user}
@@ -60,51 +61,13 @@ type AuthControlsProps = {
 function AuthControls({ user, token, AUTH_URL, logout }: AuthControlsProps) {
     return (
         <div className="flex items-center">
-            {user && <UserProfile user={user} />}
-            {token ? <SearchMenu /> : null}
-            <AuthButton token={token} AUTH_URL={AUTH_URL} logout={logout} />
+            {token && <SearchMenu />}
+            {user && <ProfileLink user={user} />}
+            <AuthenticationButton
+                token={token}
+                AUTH_URL={AUTH_URL}
+                logout={logout}
+            />
         </div>
-    );
-}
-
-function UserProfile({ user }: { user: User }) {
-    return (
-        <div className="">
-            <p className="text-sm mr-2">
-                Profile
-                {user.image && (
-                    <img
-                        src={user.image}
-                        alt="profile"
-                        className="w-5 h-5 rounded-full inline-block"
-                    />
-                )}
-            </p>
-        </div>
-    );
-}
-
-type AuthButtonProps = {
-    token: string;
-    AUTH_URL: string;
-    logout: () => void;
-};
-
-function AuthButton({ token, AUTH_URL, logout }: AuthButtonProps) {
-    return (
-        <>
-            {!token ? (
-                <a href={AUTH_URL} className="border border-gray-300 px-2 py-1">
-                    Login to Spotify
-                </a>
-            ) : (
-                <button
-                    onClick={logout}
-                    className="border border-gray-300 px-2 py-1"
-                >
-                    Logout
-                </button>
-            )}
-        </>
     );
 }

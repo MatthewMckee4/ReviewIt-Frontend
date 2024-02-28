@@ -1,4 +1,5 @@
 import React from "react";
+import NavbarItem from "../NavbarItem";
 
 type SearchBarProps = {
     searchKey: string;
@@ -15,17 +16,14 @@ export default function SearchBar({
         <form onSubmit={handleSubmit} className="flex items-center">
             <input
                 type="text"
-                className="border border-[--background-400] px-2 py-1 mr-1  focus:ring-[--secondary-600]  focus:border-[--background-400] "
+                className="text-text-50 border border-background-400 px-2 py-1 mr-1 focus:ring-secondary-600 focus:border-background-400"
                 placeholder="Search"
                 value={searchKey}
                 onChange={(e) => setSearchKey(e.target.value)}
             />
-            <button
-                type="submit"
-                className="border border-gray-300 px-2 py-1 mr-1"
-            >
-                Search
-            </button>
+            <NavbarItem>
+                <button type="submit">Search</button>
+            </NavbarItem>
         </form>
     );
 }

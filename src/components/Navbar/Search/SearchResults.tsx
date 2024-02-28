@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Artist } from "../../types/Artist";
+import { Artist } from "../../../types/Artist";
 
 type SearchResultsProps = {
     artists: Artist[];
@@ -16,7 +16,7 @@ export default function SearchResults({
     return (
         <div className="relative">
             <div
-                className={`fixed dark:bg-[background] z-50 w-[300px] ${
+                className={`fixed bg-background-700 z-50 w-[300px] ${
                     menuActive ? "block" : "hidden"
                 }`}
             >
