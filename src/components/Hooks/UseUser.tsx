@@ -1,11 +1,11 @@
 import React, { createContext, useState, useContext, useCallback } from "react";
 import { useCreateUserMutation } from "../../features/userApiSlice";
-import SpotifyUser from "../User/SpotifyUser";
+import { SpotifyUser } from "../../types/SpotifyUser";
 import { User } from "../../types/User";
 
 interface UserContextType {
     user: User | null;
-    setUser: (newUserInfo: Partial<SpotifyUser>) => void;
+    setUser: (newUserInfo: Partial<SpotifyUser> | null) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -21,7 +21,12 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     const [createUser] = useCreateUserMutation();
 
     const setUser = useCallback(
-        async (newUserInfo: Partial<SpotifyUser>) => {
+        async (newUserInfo: Partial<SpotifyUser> | null) => {
+            if (!newUserInfo) {
+                setUserInternal(null);
+                window.localStorage.removeItem("user");
+                return;
+            }
             window.localStorage.setItem("user", JSON.stringify(newUserInfo));
             const { display_name, images, id } = newUserInfo;
             let userPayload: User = {
@@ -63,7 +68,7 @@ export const useUser = (): UserContextType => {
 
 export const useUserState = (): [
     User | null,
-    (newUserInfo: Partial<SpotifyUser>) => void
+    (newUserInfo: Partial<SpotifyUser> | null) => void
 ] => {
     const { user, setUser } = useUser();
     return [user, setUser];

@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 import HomePage from "./pages/HomePage";
 import ArtistPage from "./pages/ArtistPage";
 import AlbumPage from "./pages/AlbumPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import { useTokenState } from "./components/Hooks/UseToken";
+import ProfilePage from "./pages/ProfilePage";
 
 export default function App() {
     const [, setToken] = useTokenState();
@@ -35,6 +36,7 @@ export default function App() {
                     path="/search-results/:searchKey"
                     element={<SearchResultsPage />}
                 />
+                <Route path="/profile" element={<ProfilePage />} />
             </Routes>
         </div>
     );

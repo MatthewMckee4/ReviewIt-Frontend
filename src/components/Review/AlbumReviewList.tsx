@@ -1,14 +1,14 @@
 import { Spinner } from "flowbite-react";
 import { useGetReviewsQuery } from "../../features/reviewApiSlice";
-import ReviewCard from "./ReviewCard";
 import { Review } from "../../types/Review";
+import AlbumReviewCard from "./AlbumReviewCard";
 
 type ReviewListProps = {
     user_id?: string;
     album_id?: string;
 };
 
-export default function ReviewList({
+export default function AlbumReviewList({
     user_id = "",
     album_id = "",
 }: ReviewListProps) {
@@ -37,7 +37,7 @@ export default function ReviewList({
                 <h2>Reviews</h2>
                 <ul>
                     {reviews.map((review: Review) => (
-                        <ReviewCard
+                        <AlbumReviewCard
                             review={review}
                             key={review.user_id + review.album_id}
                         />

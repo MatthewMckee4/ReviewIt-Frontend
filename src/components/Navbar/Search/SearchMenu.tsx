@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
-import { useTokenState } from "../Hooks/UseToken";
-import SearchArtists from "../../api/SearchArtists";
-import { Artist } from "../../types/Artist";
+import { useTokenState } from "../../Hooks/UseToken";
+import SearchArtists from "../../../api/SearchArtists";
+import { Artist } from "../../../types/Artist";
 import { useNavigate } from "react-router-dom";
 
 export default function SearchMenu() {
@@ -17,7 +17,6 @@ export default function SearchMenu() {
     useEffect(() => {
         const fetchArtists = async () => {
             try {
-                console.log("Token search menu:", token);
                 const artists = await SearchArtists(token, searchKey);
                 setArtists(artists);
             } catch (error) {
